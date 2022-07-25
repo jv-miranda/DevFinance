@@ -1,0 +1,144 @@
+:root {
+  /* FONT RESET TO USE REM UNIT MORE EASILY */
+  font-size: 62.5%;
+
+  /* COLOR PALLETE */
+  --dark-green: #2d4a22;
+  --background: #e5e5e5;
+  --main-green: #49aa26;
+  --white: #ffffff;
+  --titles: #363f5f;
+  --red: #e92929;
+  --text: #969cb2;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: var(--background);
+}
+
+.wrapper {
+  margin-inline: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
+}
+
+/* HEADER ================================= */
+header {
+  background-color: var(--dark-green);
+  display: flex;
+  justify-content: center;
+  height: 23.8rem;
+  width: 100vw;
+}
+
+header h1 {
+  margin-top: 2rem;
+  color: var(--white);
+}
+
+/* MAIN ==================================== */
+main {
+  margin-top: -10rem;
+}
+
+/* CARDS SECTION ============================ */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.cards .card {
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  height: 13.6rem;
+  padding: 2.5rem 1.8rem 1.813rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.41rem;
+}
+
+.cards .card .top {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: var(--titles);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cards .card .value {
+  font-size: 3.6rem;
+  line-height: 5.4rem;
+  color: var(--titles);
+}
+
+.cards .card .value strong {
+  font-weight: 500;
+}
+
+.cards .card.total {
+  background-color: var(--main-green);
+}
+
+.cards .card.total .top span,
+.cards .card.total .value {
+  color: var(--white);
+}
+
+/* TRANSACTIONS SECTION ====================== */
+.transactions table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+  margin-bottom: 16rem;
+}
+
+.transactions th,
+.transactions td {
+  padding: 2rem 3.2rem;
+  text-align: left
+}
+
+.transactions th {
+  color: var(--text);
+}
+
+.transactions td {
+  background-color: var(--white);
+  border-radius: 0.5rem;;
+}
+
+.transactions tr {
+  opacity: 0.7;
+}
+
+.transactions tr:hover {
+  opacity: 1;
+}
+
+/* FOOTER =============================== */
+
+/* MEDIA QUERIES ============================ */
+@media (min-width: 850px) {
+  .wrapper {
+    margin-inline: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section {
+    width: 80rem;
+  }
+}
