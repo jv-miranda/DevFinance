@@ -1,6 +1,6 @@
 :root {
   /* FONT RESET TO USE REM UNIT MORE EASILY */
-  font-size: 62.5%;
+  font-size: 59%;
 
   /* COLOR PALLETE */
   --dark-green: #2d4a22;
@@ -23,6 +23,7 @@
 body {
   font-size: 1.6rem;
   background-color: var(--background);
+  overflow-x: hidden;
 }
 
 .wrapper {
@@ -30,6 +31,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6.4rem;
+}
+
+.srOnly {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+a {
+  text-decoration: none;
 }
 
 /* HEADER ================================= */
@@ -41,9 +58,10 @@ header {
   width: 100vw;
 }
 
-header h1 {
-  margin-top: 2rem;
-  color: var(--white);
+header img {
+  margin-top: 4rem;
+  width: 171.14px;
+  height: 22.4px;
 }
 
 /* MAIN ==================================== */
@@ -62,11 +80,12 @@ main {
   width: 100%;
   background-color: var(--white);
   border-radius: 0.5rem;
-  height: 13.6rem;
   padding: 2.5rem 1.8rem 1.813rem 3.2rem;
   display: flex;
   flex-direction: column;
   gap: 1.41rem;
+  -webkit-box-shadow: 1px 8px 50px -15px rgba(0, 0, 0, 0.19);
+  box-shadow: 1px 8px 50px -15px rgba(0, 0, 0, 0.19);
 }
 
 .cards .card .top {
@@ -98,16 +117,42 @@ main {
 }
 
 /* TRANSACTIONS SECTION ====================== */
+.transactions {
+  overflow-x: auto;
+  margin-bottom: 5rem;
+}
+
+.transactions button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  margin-bottom: 2rem;
+}
+
+.transactions button a {
+  color: var(--main-green);
+  font-weight: 500;
+}
+
+.transactions button a:hover {
+  color: var(--dark-green);
+}
+
 .transactions table {
   width: 100%;
   border-spacing: 0 0.5rem;
-  margin-bottom: 16rem;
+  -webkit-box-shadow: 1px 8px 50px -15px rgba(0, 0, 0, 0.19);
+  box-shadow: 1px 8px 50px -15px rgba(0, 0, 0, 0.19);
 }
 
 .transactions th,
 .transactions td {
   padding: 2rem 3.2rem;
-  text-align: left
+  text-align: left;
 }
 
 .transactions th {
@@ -116,21 +161,44 @@ main {
 
 .transactions td {
   background-color: var(--white);
-  border-radius: 0.5rem;;
 }
 
 .transactions tr {
   opacity: 0.7;
+  border-radius: 0.5rem;
 }
 
 .transactions tr:hover {
   opacity: 1;
 }
 
+.transactions .description {
+  color: black;
+}
+
+.transactions .income {
+  color: var(--main-green);
+}
+
+.transactions .expense {
+  color: var(--red);
+}
+
+.transactions .date {
+  color: var(--text);
+}
+
+.transactions .deleteTransaction {
+  cursor: pointer;
+}
 /* FOOTER =============================== */
 
 /* MEDIA QUERIES ============================ */
-@media (min-width: 850px) {
+@media (min-width: 900px) {
+  :root {
+    font-size: 62.5%;
+  } 
+  
   .wrapper {
     margin-inline: unset;
     display: flex;
@@ -139,6 +207,10 @@ main {
   }
 
   section {
-    width: 80rem;
+    width: 87rem;
+  }
+
+  .cards {
+    flex-direction: row;
   }
 }

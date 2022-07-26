@@ -19,12 +19,14 @@
   </head>
   <body>
     <header>
-      <h1>dev.finance$</h1>
+      <img src="./assets/icons/logo.svg" alt="Logo Dev Finance">
     </header>
 
     <main>
       <div class="wrapper">
         <section class="cards">
+          <h2 class="srOnly">Balanço</h2>
+          
           <div class="card entry">
             <div class="top">
               <span>Entradas</span>
@@ -51,6 +53,10 @@
         </section>
 
         <section class="transactions">
+          <h2 class="srOnly">Transações</h2>
+          
+          <button onclick="openModal()"><a href="#" class="newTransaction">+ Nova Transação</a></button>
+
           <table>
             <thead>
               <tr>
@@ -62,27 +68,28 @@
             
             <tbody>
               <tr>
-                <td>Desenvolvimento de site</td>
-                <td>R$ 12.000,00</td>
-                <td>13/04/2020</td>
+                <td class="description">Desenvolvimento de site</td>
+                <td class="income ">R$ 12.000,00</td>
+                <td class="date">13/04/2020</td>
+                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
               </tr>
   
               <tr>
-                <td>Desenvolvimento de site</td>
-                <td>R$ 12.000,00</td>
-                <td>13/04/2020</td>
+                <td class="description">Luz</td>
+                <td class="expense">- R$ 500,00</td>
+                <td class="date">13/04/2020</td>
+                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
               </tr>
   
               <tr>
-                <td>Desenvolvimento de site</td>
-                <td>R$ 12.000,00</td>
-                <td>13/04/2020</td>
+                <td class="description">Internet</td>
+                <td class="expense">- R$ 200,00</td>
+                <td class="date">13/04/2020</td>
+                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
               </tr>
             </tbody>
         </section>
       </div>
     </main>
-
-
   </body>
 </html>
