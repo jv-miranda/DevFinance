@@ -49,6 +49,16 @@ a {
   text-decoration: none;
 }
 
+button, input {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 /* HEADER ================================= */
 header {
   background-color: var(--dark-green);
@@ -123,17 +133,7 @@ main {
 }
 
 .transactions button {
-  background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
   margin-bottom: 2rem;
-}
-
-.transactions button a {
   color: var(--main-green);
   font-weight: 500;
 }
@@ -191,14 +191,100 @@ main {
 .transactions .deleteTransaction {
   cursor: pointer;
 }
-/* FOOTER =============================== */
+
+/* MODAL =============================== */
+.modalOverlay {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 500ms;
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.modalOverlay.open {
+  border: initial;
+  clip: initial;
+  clip: initial;
+  margin: initial;
+  overflow: initial;
+  padding: initial;
+  
+  visibility: visible;
+  opacity: 1;
+  top: 0;
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background-color:rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalOverlay.open .modal {
+  background-color: var(--background);
+  width: 100%;
+  max-width: 56.8rem;
+  padding: 3rem 2rem;
+  border-radius: 0.5rem;
+  margin-inline: 2rem 3.6rem;
+}
+
+/* FORM ============================ */
+form input {
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  height: 5rem;
+  padding-inline: 2rem;
+}
+form .help {
+  text-align: justify;
+  color: var(--text);
+  font-size: 1.4rem;
+}
+
+.inputGroup {
+  margin-block: 2rem;
+}
+
+form .buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+form button {
+  width: 100%;
+  padding-block: 2rem;
+}
+
+form #cancelButton {
+  border: var(--red) 0.2rem solid;
+  color: var(--red);
+  font-weight: 500;
+}
+
+form #saveButton {
+  border: var(--main-green) 0.2rem solid;
+  background-color: var(--main-green);
+  color: var(--white);
+  font-weight: 500;
+}
 
 /* MEDIA QUERIES ============================ */
 @media (min-width: 900px) {
   :root {
     font-size: 62.5%;
-  } 
-  
+  }
+
   .wrapper {
     margin-inline: unset;
     display: flex;

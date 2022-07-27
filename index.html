@@ -17,16 +17,17 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
-  <body>
+
+  <body class="">
     <header>
-      <img src="./assets/icons/logo.svg" alt="Logo Dev Finance">
+      <img src="./assets/icons/logo.svg" alt="Logo Dev Finance" />
     </header>
 
     <main>
       <div class="wrapper">
         <section class="cards">
           <h2 class="srOnly">Balanço</h2>
-          
+
           <div class="card entry">
             <div class="top">
               <span>Entradas</span>
@@ -54,8 +55,10 @@
 
         <section class="transactions">
           <h2 class="srOnly">Transações</h2>
-          
-          <button onclick="openModal()"><a href="#" class="newTransaction">+ Nova Transação</a></button>
+
+          <button onclick="toggleModalOpen('modalOverlay')">
+            + Nova Transação
+          </button>
 
           <table>
             <thead>
@@ -65,31 +68,109 @@
                 <th>Data</th>
               </tr>
             </thead>
-            
+
             <tbody>
               <tr>
                 <td class="description">Desenvolvimento de site</td>
-                <td class="income ">R$ 12.000,00</td>
+                <td class="income">R$ 12.000,00</td>
                 <td class="date">13/04/2020</td>
-                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
+                <td class="deleteTransaction">
+                  <img src="./assets/icons/minus.svg" alt="" />
+                </td>
               </tr>
-  
+
               <tr>
                 <td class="description">Luz</td>
                 <td class="expense">- R$ 500,00</td>
                 <td class="date">13/04/2020</td>
-                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
+                <td class="deleteTransaction">
+                  <img src="./assets/icons/minus.svg" alt="" />
+                </td>
               </tr>
-  
+
               <tr>
                 <td class="description">Internet</td>
                 <td class="expense">- R$ 200,00</td>
                 <td class="date">13/04/2020</td>
-                <td class="deleteTransaction"><img src="./assets/icons/minus.svg" alt=""></td>
+                <td class="deleteTransaction">
+                  <img src="./assets/icons/minus.svg" alt="" />
+                </td>
               </tr>
             </tbody>
+          </table>
         </section>
       </div>
     </main>
+
+    <div id="modalOverlay" class="modalOverlay">
+      <div class="modal">
+        <div class="content">
+          <h2>Nova Transação</h2>
+
+          <form action="">
+            <div class="inputGroup">
+              <label class="srOnly" for="descriptionInput">Descrição</label>
+              <input
+                id="descriptionInput"
+                name="descriptionInput"
+                type="text"
+                name=""
+                id=""
+                placeholder="Descrição"
+              />
+            </div>
+
+            <div class="inputGroup">
+              <label class="srOnly" for="amount">Valor</label>
+              <input
+                id="amount"
+                name="amount"
+                type="number"
+                name=""
+                step="0.01"
+                id=""
+                placeholder="0,00"
+              />
+
+              <p class="help">
+                Use o sinal - (Negativo) para despesas e , (vírgula) para casas
+                decimais.
+              </p>
+            </div>
+
+            <div class="inputGroup">
+              <label class="srOnly" for="descriptionInput">Descrição</label>
+              <input
+                id="descriptionInput"
+                name="descriptionInput"
+                type="date"
+                name=""
+                id=""
+                placeholder="Descrição"
+              />
+            </div>
+
+            <div class="buttons">
+              <button
+                type="button"
+                id="cancelButton"
+                onclick="toggleModalOpen('modalOverlay')"
+              >
+                CANCELAR
+              </button>
+              <button
+                type="button"
+                id="saveButton"
+                onclick="toggleModalOpen('modalOverlay')"
+              >
+                SALVAR
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- JAVASCRIPT -->
+    <script src="./assets/js/app.js"></script>
   </body>
 </html>
