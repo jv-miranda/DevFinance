@@ -90,6 +90,7 @@ const htmlManipulations = {
   toggleModalOpen: modalId => {
     const modalOverlay = document.querySelector(`#${modalId}`)
     modalOverlay.classList.toggle(`open`)
+    form.clearFields()
   },
 
   // Function that generates html for the specified transaction in the specified index of the main data structure.
@@ -176,10 +177,10 @@ const form = {
   // Function that submits the form by executing all related functions in the right order.
   submit: event => {
     event.preventDefault()
-    htmlManipulations.toggleModalOpen('modalOverlay')
     try {
       form.validateFields()
       const transaction = form.formatData()
+      htmlManipulations.toggleModalOpen('modalOverlay')
       form.saveTransaction(transaction)
 
     } catch (error) {
@@ -217,9 +218,9 @@ const form = {
 
   // Function that clears all the values of the form fields.
   clearFields: () => {
-    const description = document.querySelector(`input#descriptionInput`)
-    const amount = document.querySelector(`input#amountInput`)
-    const date = document.querySelector(`input#dateInput`)
+    const description = document.querySelector(`#description`)
+    const amount = document.querySelector(`#amount`)
+    const date = document.querySelector(`#date`)
     description.value = ``
     amount.value = ``
     date.value = ``
@@ -249,6 +250,3 @@ const app = {
 }
 
 app.init()
-// console.log(document.querySelector("#description").value)
-// console.log(document.querySelector("#amount").value)
-// console.log(document.querySelector("#date").value)
