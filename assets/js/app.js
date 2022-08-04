@@ -194,7 +194,7 @@ const form = {
       description.trim() === '' || amount.trim() === '' || date.trim() === ''
 
     if (someFieldsAreEmpty) {
-      throw new Error('All fields have to be filled.')
+      throw new Error('Todos os campos devem ser preenchidos')
     }
   },
 
