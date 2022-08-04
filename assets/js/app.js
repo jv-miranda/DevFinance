@@ -1,16 +1,35 @@
 // DEV.FINANCE APP.JS
 
-// Object responsible for storing the functions that are related with the transactions (calculus, adding, removing).
+// Object that stores the main functions to work with the localStorage.
+const storage = {
+  // Function that gets what is stored in the LocalStorage or if the key "devFinance:transactions" doesn't exist in the localStorage an empty array is returned.
+  get() {
+    return JSON.parse(localStorage.getItem("devFinance:transactions")) || []
+  },
+  // Function that sets an entered value to the LocalStorage key "devFinance:transactions".
+  set(transactions) {
+    localStorage.setItem("devFinance:transactions", JSON.stringify(transactions))
+  }
+}
+
+// Object responsible for storing the functions that are related with the transactions (calculus, adding, removing, etc).
 const transaction = {
-  all: [],
+  // Everytime the aplicattion loads, the data stored in the LocalStorage is loaded as an array and stored at transaction.all.
+  all: storage.get(),
+  
+  // When this function is called with a value as argument the value is pushed into the transaction.all array and the app reloads so that it can show the updates in the html.
   add: transact => {
     transaction.all.push(transact)
     app.reload()
   },
+  
+  // When this function is called with an id as argument the transaction is removed from the transaction.all array and the app reloads so that it can show the updates in the html.
   remove: transactId => {
     transaction.all.splice(transactId, 1)
     app.reload()
   },
+  
+  // Function that returns the sum of all incomes stored in the transaction.all array.
   incomes: () => {
     let incomes = 0
     const filteredIncomes = transaction.all
@@ -21,6 +40,8 @@ const transaction = {
     
     return incomes
   },
+  
+  // Function that returns the sum of all expenses stored in the transaction.all array.
   expenses: () => {
     let expenses = 0
     const filteredExpenses = transaction.all
@@ -30,6 +51,8 @@ const transaction = {
     filteredExpenses.forEach(expense => (expenses += expense))
     return expenses
   },
+  
+  // Function that returns the sum of all incomes and expenses stored in the transaction.all array and toggles the application's theme according to the sum.
   total: () => {
     let total = 0
     const mappedTotal = transaction.all.map(transaction => transaction.amount)
@@ -41,7 +64,7 @@ const transaction = {
 
 // Object responsible for storing the functions that manipulate data input and output visually in HTML.
 const htmlManipulations = {
-  // Function that opens/closes input modal
+  // Function that switches the application's theme according to an entered total. If the total is positive, the application turns green. If not, the application turns red.
   toggleGreenAndRedTheme: (total) => {
     const header = document.querySelector(`header`)
     const totalCard = document.querySelector(`.card.total`)
@@ -60,9 +83,11 @@ const htmlManipulations = {
     }
   },
   
+  // Function that opens/closes the input modal.
   toggleModalOpen: modalId => {
     const modalOverlay = document.querySelector(`#${modalId}`)
     modalOverlay.classList.toggle(`open`)
+    form.clearFields()
   },
 
   // Function that generates html for the specified transaction in the specified index of the main data structure.
@@ -123,15 +148,21 @@ const utilities = {
       currency: 'BRL'
     })
   },
+  
+  // Function that formats the amount by turning it into a number and multiplying it by 100 so that it's not a float number anymore.
   formatAmount: amountValue => {
     return Number(amountValue) * 100
   },
+
+  // Function that formats the date to the brazillian pattern (dd/mm/yyyy).
   formatDate: dateValue => {
     return dateValue.replace(/(\d{4})-(\d{2})-(\d{2})/, `$3/$2/$1`)
   }
 }
+
 // Object responsible for storing functions related to the modal form.
 const form = {
+  // Function that returns the values entered in the form as an object ({description: ..., amount: ..., date:...}).
   getValues: () => {
     const values = {
       description: document.querySelector('input#descriptionInput').value,
@@ -155,6 +186,7 @@ const form = {
     }
   },
 
+  // Function that validades the field by checking if all fields are filled and throws an error if not.
   validateFields: () => {
     const { description, amount, date } = form.getValues()
     const someFieldsAreEmpty =
@@ -167,6 +199,7 @@ const form = {
     }
   },
 
+  // Function that formats the data so that it can be added and read in the transaction.all array properly.
   formatData: () => {
     let { description, amount, date } = form.getValues()
     amount = utilities.formatAmount(amount)
@@ -178,10 +211,12 @@ const form = {
     }
   },
 
+  // Function that saves the transaction by adding it to the transaction.all array.
   saveTransaction: transact => {
     transaction.add(transact)
   },
 
+  // Function that clears all the values of the form fields.
   clearFields: () => {
     const description = document.querySelector(`input#descriptionInput`)
     const amount = document.querySelector(`input#amountInput`)
@@ -194,7 +229,7 @@ const form = {
 
 // Object that stores the two main function of the app.
 const app = {
-  // Function that initializes the application by adding all the transactions that are already stored to the html and updating balance.
+  // Function that initializes the application by adding all the transactions that are already stored to the html, setting the localStorage to the same value as the transaction.all array and updating balance.
   init: () => {
     transaction.all.forEach(obj => {
       htmlManipulations.addTransaction(
@@ -204,6 +239,7 @@ const app = {
     })
 
     htmlManipulations.updateBalance()
+    storage.set(transaction.all)
   },
   // Function that reloads the html by removing all transactions from the html and initializing the app again.
   reload: () => {

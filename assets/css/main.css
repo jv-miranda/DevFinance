@@ -70,12 +70,12 @@ header {
 
 header.green {
   background-color: var(--dark-green);
-  transition: background-color 500ms;
+  transition: background-color 600ms;
 }
 
 header.red {
   background-color: var(--dark-red);
-  transition: background-color 500ms;
+  transition: background-color 600ms;
 } 
 
 header img {
