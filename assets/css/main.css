@@ -9,6 +9,7 @@
   --white: #ffffff;
   --titles: #363f5f;
   --red: #e92929;
+  --dark-red: #4a2222;
   --text: #969cb2;
 }
 
@@ -61,12 +62,21 @@ button, input {
 
 /* HEADER ================================= */
 header {
-  background-color: var(--dark-green);
   display: flex;
   justify-content: center;
   height: 23.8rem;
   width: 100vw;
 }
+
+header.green {
+  background-color: var(--dark-green);
+  transition: background-color 500ms;
+}
+
+header.red {
+  background-color: var(--dark-red);
+  transition: background-color 500ms;
+} 
 
 header img {
   margin-top: 4rem;
@@ -108,8 +118,9 @@ main {
 }
 
 .cards .card .value {
-  font-size: 3.6rem;
+  font-size: 3rem;
   line-height: 5.4rem;
+  font-weight: 500;
   color: var(--titles);
 }
 
@@ -117,8 +128,12 @@ main {
   font-weight: 500;
 }
 
-.cards .card.total {
+.cards .card.total.green {
   background-color: var(--main-green);
+}
+
+.cards .card.total.red {
+  background-color: var(--red);
 }
 
 .cards .card.total .top span,

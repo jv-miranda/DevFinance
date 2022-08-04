@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
 
-  <body class="">
-    <header>
+  <body>
+    <header class="green">
       <img src="./assets/icons/logo.svg" alt="Logo Dev Finance" />
     </header>
 
@@ -33,7 +33,7 @@
               <span>Entradas</span>
               <img src="./assets/icons/entryIcon.svg" alt="" />
             </div>
-            <div class="value">R$ <strong>17.400</strong>,00</div>
+            <div class="value">00,00</div>
           </div>
 
           <div class="card out">
@@ -41,22 +41,22 @@
               <span>Saídas</span>
               <img src="./assets/icons/outIcon.svg" alt="" />
             </div>
-            <div class="value">R$ <strong>1.259</strong>,00</div>
+            <div class="value">00,00</div>
           </div>
 
-          <div class="card total">
+          <div class="card total green">
             <div class="top">
-              <span>Entradas</span>
+              <span>Total</span>
               <img src="./assets/icons/totalIcon.svg" alt="" />
             </div>
-            <div class="value">R$ <strong>17.400</strong>,00</div>
+            <div class="value">00,00</div>
           </div>
         </section>
 
         <section class="transactions">
           <h2 class="srOnly">Transações</h2>
 
-          <button onclick="toggleModalOpen('modalOverlay')">
+          <button onclick="htmlManipulations.toggleModalOpen('modalOverlay')">
             + Nova Transação
           </button>
 
@@ -69,34 +69,7 @@
               </tr>
             </thead>
 
-            <tbody>
-              <tr>
-                <td class="description">Desenvolvimento de site</td>
-                <td class="income">R$ 12.000,00</td>
-                <td class="date">13/04/2020</td>
-                <td class="deleteTransaction">
-                  <img src="./assets/icons/minus.svg" alt="" />
-                </td>
-              </tr>
-
-              <tr>
-                <td class="description">Luz</td>
-                <td class="expense">- R$ 500,00</td>
-                <td class="date">13/04/2020</td>
-                <td class="deleteTransaction">
-                  <img src="./assets/icons/minus.svg" alt="" />
-                </td>
-              </tr>
-
-              <tr>
-                <td class="description">Internet</td>
-                <td class="expense">- R$ 200,00</td>
-                <td class="date">13/04/2020</td>
-                <td class="deleteTransaction">
-                  <img src="./assets/icons/minus.svg" alt="" />
-                </td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </section>
       </div>
@@ -107,7 +80,7 @@
         <div class="content">
           <h2>Nova Transação</h2>
 
-          <form action="">
+          <form action="" onsubmit="form.submit(event)">
             <div class="inputGroup">
               <label class="srOnly" for="descriptionInput">Descrição</label>
               <input
@@ -121,10 +94,10 @@
             </div>
 
             <div class="inputGroup">
-              <label class="srOnly" for="amount">Valor</label>
+              <label class="srOnly" for="amountInput">Valor</label>
               <input
-                id="amount"
-                name="amount"
+                id="amountInput"
+                name="amountInput"
                 type="number"
                 name=""
                 step="0.01"
@@ -141,8 +114,8 @@
             <div class="inputGroup">
               <label class="srOnly" for="descriptionInput">Descrição</label>
               <input
-                id="descriptionInput"
-                name="descriptionInput"
+                id="dateInput"
+                name="dateInput"
                 type="date"
                 name=""
                 id=""
@@ -154,14 +127,13 @@
               <button
                 type="button"
                 id="cancelButton"
-                onclick="toggleModalOpen('modalOverlay')"
+                onclick="htmlManipulations.toggleModalOpen('modalOverlay')"
               >
                 CANCELAR
               </button>
               <button
-                type="button"
+                type="submit"
                 id="saveButton"
-                onclick="toggleModalOpen('modalOverlay')"
               >
                 SALVAR
               </button>
