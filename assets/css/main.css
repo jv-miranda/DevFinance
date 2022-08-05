@@ -50,7 +50,8 @@ a {
   text-decoration: none;
 }
 
-button, input {
+button,
+input {
   background: none;
   color: inherit;
   border: none;
@@ -76,7 +77,7 @@ header.green {
 header.red {
   background-color: var(--dark-red);
   transition: background-color 600ms;
-} 
+}
 
 header img {
   margin-top: 4rem;
@@ -207,6 +208,11 @@ main {
   cursor: pointer;
 }
 
+.transactions .editTransaction img {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
 /* MODAL =============================== */
 .modalOverlay {
   visibility: hidden;
@@ -230,7 +236,7 @@ main {
   margin: initial;
   overflow: initial;
   padding: initial;
-  
+
   visibility: visible;
   opacity: 1;
   top: 0;
@@ -238,7 +244,7 @@ main {
   z-index: 10;
   width: 100vw;
   height: 100vh;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -250,17 +256,18 @@ main {
   max-width: 56.8rem;
   padding: 3rem 2rem;
   border-radius: 0.5rem;
-  margin-inline: 2rem 3.6rem;
+  margin-inline: 2rem 2rem;
 }
 
 /* FORM ============================ */
-form input {
+form .inputGroup input {
   width: 100%;
   background-color: var(--white);
   border-radius: 0.5rem;
   height: 5rem;
   padding-inline: 2rem;
 }
+
 form .help {
   text-align: justify;
   color: var(--text);
@@ -271,14 +278,65 @@ form .help {
   margin-block: 2rem;
 }
 
+form .radioGroup {
+  display: flex;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+form input[type="radio"] {
+  display: none;
+}
+
+form .radioGroup label {
+  color: var(--main-green);
+  font-weight: 500;
+  border: 0.2rem solid var(--main-green);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+form .radioGroup label:hover {
+  color: var(--dark-green);
+  border: 0.2rem solid var(--dark-green);
+}
+
+form input[type="radio"]:checked + label {
+  background-color: var(--dark-green);
+  color: var(--white);
+  border: 0.2rem solid var(--darkgreen);
+}
+
+form .radioGroup #expenseLabel {
+  color: var(--red);
+  border: 0.2rem solid var(--red);
+}
+
+form .radioGroup #expenseLabel:hover {
+  color: var(--dark-red);
+  border: 0.2rem solid var(--dark-red);
+}
+
+form input[type="radio"]:checked + #expenseLabel {
+  background-color: var(--dark-red);
+  color: var(--white);
+  border: 0.2rem solid var(--dark-red);
+}
+
 form .buttons {
   display: flex;
   gap: 1.5rem;
 }
 
-form button {
+form .buttons button {
   width: 100%;
   padding-block: 2rem;
+  transition: 500ms;
 }
 
 form #cancelButton {
@@ -287,11 +345,24 @@ form #cancelButton {
   font-weight: 500;
 }
 
+form #cancelButton:hover {
+  border: var(--dark-red) 0.2rem solid;
+  color: var(--white);
+  background-color: var(--dark-red);
+}
+
 form #saveButton {
   border: var(--main-green) 0.2rem solid;
   background-color: var(--main-green);
   color: var(--white);
   font-weight: 500;
+  border: var(--dark-green) 0.2rem solid;
+  background-color: var(--dark-green);
+}
+
+form #saveButton:hover {
+  border: var(--main-green) 0.2rem solid;
+  background-color: var(--main-green);
 }
 
 /* MEDIA QUERIES ============================ */

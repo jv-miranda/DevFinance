@@ -103,6 +103,9 @@ const htmlManipulations = {
       <td class="description">${newTransaction.description}</td>
       <td class="${cssClass}">${amount}</td>
       <td class="date">${newTransaction.date}</td>
+      <td class="editTransaction" onclick="transaction.edit(${index})">
+        <img src="./assets/icons/edit.png" alt="" />
+      </td>
       <td class="deleteTransaction" onclick="transaction.remove(${index})">
         <img src="./assets/icons/minus.svg" alt="" />
       </td>
@@ -154,7 +157,17 @@ const utilities = {
 
   // Function that formats the amount by turning it into a number and multiplying it by 100 so that it's not a float number anymore.
   formatAmount: amountValue => {
-    return Number(amountValue) * 100
+    const radios = document.querySelectorAll(`.radio`)
+    let checkedRadioValue;
+    radios.forEach(radioButton => {
+      if (radioButton.checked) {
+        checkedRadioValue = radioButton.value
+      }
+    })
+    
+    const amountIsEntry = checkedRadioValue == `entry`
+    
+    return (amountIsEntry ? Number(amountValue) * 100 : -Math.abs(Number(amountValue) * 100))
   },
 
   // Function that formats the date to the brazillian pattern (dd/mm/yyyy).
@@ -180,7 +193,7 @@ const form = {
     try {
       form.validateFields()
       const transaction = form.formatData()
-      htmlManipulations.toggleModalOpen('modalOverlay')
+      htmlManipulations.toggleModalOpen('addModal')
       form.saveTransaction(transaction)
 
     } catch (error) {
