@@ -26,6 +26,18 @@ const transaction = {
     app.reload()
   },
 
+  edit: event => {
+    event.preventDefault()
+    form.validateFields(`editModal`)
+
+    const transact = form.formatData(`editModal`)
+    const idToEdit = document.querySelector(`#idToEditSaver`).innerHTML
+    transaction.all[idToEdit] = transact
+    htmlManipulations.toggleModalOpen('editModal')
+
+    app.reload()
+  },
+
   // When this function is called with an id as argument the transaction is removed from the transaction.all array and the app reloads so that it can show the updates in the html.
   remove: transactId => {
     transaction.all.splice(transactId, 1)
@@ -67,6 +79,41 @@ const transaction = {
 
 // Object responsible for storing the functions that manipulate data input and output visually in HTML.
 const htmlManipulations = {
+  openEditModal: transactId => {
+    htmlManipulations.toggleModalOpen('editModal')
+    htmlManipulations.showTransactionInFieldds(transactId)
+  },
+
+  showTransactionInFieldds: transactId => {
+    idToEditSaver.innerHTML = transactId
+    const selectedTransaction = transaction.all[transactId]
+    const copiedTransaction = {
+      description: selectedTransaction.description,
+      amount: selectedTransaction.amount / 100,
+      date: selectedTransaction.date.replace(
+        /(\d{2})\/(\d{2})\/(\d{4})/,
+        `$3-$2-$1`
+      )
+    }
+    const descriptionField = document.querySelector(`#editModal #description`)
+    const amountField = document.querySelector(`#editModal #amount`)
+    const dateField = document.querySelector(`#editModal #date`)
+    const expenseRadio = document.querySelector(`#editModal #expenseRadio`)
+    const entryRadio = document.querySelector(`#editModal #entryRadio`)
+
+    descriptionField.value = copiedTransaction.description
+    amountField.value = copiedTransaction.amount
+    dateField.value = copiedTransaction.date
+
+    if (copiedTransaction.amount < 0) {
+      expenseRadio.checked = true
+      entryRadio.checked = false
+    } else {
+      expenseRadio.checked = false
+      entryRadio.checked = true
+    }
+  },
+
   // Function that switches the application's theme according to an entered total. If the total is positive, the application turns green. If not, the application turns red.
   toggleGreenAndRedTheme: total => {
     const header = document.querySelector(`header`)
@@ -90,7 +137,7 @@ const htmlManipulations = {
   toggleModalOpen: modalId => {
     const modalOverlay = document.querySelector(`#${modalId}`)
     modalOverlay.classList.toggle(`open`)
-    form.clearFields()
+    form.clearFields(modalId)
   },
 
   // Function that generates html for the specified transaction in the specified index of the main data structure.
@@ -103,7 +150,7 @@ const htmlManipulations = {
       <td class="description">${newTransaction.description}</td>
       <td class="${cssClass}">${amount}</td>
       <td class="date">${newTransaction.date}</td>
-      <td class="editTransaction" onclick="transaction.edit(${index})">
+      <td class="editTransaction" onclick="htmlManipulations.openEditModal(${index})">
         <img src="./assets/icons/edit.png" alt="" />
       </td>
       <td class="deleteTransaction" onclick="transaction.remove(${index})">
@@ -156,18 +203,20 @@ const utilities = {
   },
 
   // Function that formats the amount by turning it into a number and multiplying it by 100 so that it's not a float number anymore.
-  formatAmount: amountValue => {
-    const radios = document.querySelectorAll(`.radio`)
-    let checkedRadioValue;
+  formatAmount: (modalId, amountValue) => {
+    const radios = document.querySelectorAll(`#${modalId} .radio`)
+    let checkedRadioValue
     radios.forEach(radioButton => {
       if (radioButton.checked) {
         checkedRadioValue = radioButton.value
       }
     })
-    
+
     const amountIsEntry = checkedRadioValue == `entry`
-    
-    return (amountIsEntry ? Number(amountValue) * 100 : -Math.abs(Number(amountValue) * 100))
+
+    return amountIsEntry
+      ? Number(amountValue) * 100
+      : -Math.abs(Number(amountValue) * 100)
   },
 
   // Function that formats the date to the brazillian pattern (dd/mm/yyyy).
@@ -179,31 +228,30 @@ const utilities = {
 // Object responsible for storing functions related to the modal form.
 const form = {
   // Function that returns the values entered in the form as an object ({description: ..., amount: ..., date:...}).
-  getValues: () => {
+  getValues: modalId => {
     return {
-      description: document.querySelector("#description").value,
-      amount: document.querySelector("#amount").value,
-      date: document.querySelector("#date").value
+      description: document.querySelector(`#${modalId} #description`).value,
+      amount: document.querySelector(`#${modalId} #amount`).value,
+      date: document.querySelector(`#${modalId} #date`).value
     }
   },
 
   // Function that submits the form by executing all related functions in the right order.
-  submit: event => {
+  submit: (event, modalId) => {
     event.preventDefault()
     try {
-      form.validateFields()
-      const transaction = form.formatData()
+      form.validateFields(modalId)
+      const transaction = form.formatData(modalId)
       htmlManipulations.toggleModalOpen('addModal')
       form.saveTransaction(transaction)
-
     } catch (error) {
-      alert(error.message)
+      alert(error)
     }
   },
 
   // Function that validades the field by checking if all fields are filled and throws an error if not.
-  validateFields: () => {
-    const { description, amount, date } = form.getValues()
+  validateFields: modalId => {
+    const { description, amount, date } = form.getValues(modalId)
     const someFieldsAreEmpty =
       description.trim() === '' || amount.trim() === '' || date.trim() === ''
 
@@ -213,9 +261,9 @@ const form = {
   },
 
   // Function that formats the data so that it can be added and read in the transaction.all array properly.
-  formatData: () => {
-    let { description, amount, date } = form.getValues()
-    amount = utilities.formatAmount(amount)
+  formatData: modalId => {
+    let { description, amount, date } = form.getValues(modalId)
+    amount = utilities.formatAmount(modalId, amount)
     date = utilities.formatDate(date)
     return {
       description: description,
@@ -230,13 +278,17 @@ const form = {
   },
 
   // Function that clears all the values of the form fields.
-  clearFields: () => {
-    const description = document.querySelector(`#description`)
-    const amount = document.querySelector(`#amount`)
-    const date = document.querySelector(`#date`)
+  clearFields: modalId => {
+    const description = document.querySelector(`#${modalId} #description`)
+    const amount = document.querySelector(`#${modalId} #amount`)
+    const date = document.querySelector(`#${modalId} #date`)
+    const expenseRadio = document.querySelector(`#${modalId} #expenseRadio`)
+    const entryRadio = document.querySelector(`#${modalId} #entryRadio`)
     description.value = ``
     amount.value = ``
     date.value = ``
+    expenseRadio.checked = false
+    entryRadio.checked = true
   }
 }
 

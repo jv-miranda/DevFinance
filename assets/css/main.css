@@ -260,7 +260,7 @@ main {
 }
 
 /* FORM ============================ */
-form .inputGroup input {
+.form .inputGroup input {
   width: 100%;
   background-color: var(--white);
   border-radius: 0.5rem;
@@ -268,7 +268,7 @@ form .inputGroup input {
   padding-inline: 2rem;
 }
 
-form .help {
+.form .help {
   text-align: justify;
   color: var(--text);
   font-size: 1.4rem;
@@ -278,17 +278,17 @@ form .help {
   margin-block: 2rem;
 }
 
-form .radioGroup {
+.form .radioGroup {
   display: flex;
   width: 100%;
   gap: 1.5rem;
 }
 
-form input[type="radio"] {
+.form input[type="radio"] {
   display: none;
 }
 
-form .radioGroup label {
+.form .radioGroup label {
   color: var(--main-green);
   font-weight: 500;
   border: 0.2rem solid var(--main-green);
@@ -301,57 +301,57 @@ form .radioGroup label {
   cursor: pointer;
 }
 
-form .radioGroup label:hover {
+.form .radioGroup label:hover {
   color: var(--dark-green);
   border: 0.2rem solid var(--dark-green);
 }
 
-form input[type="radio"]:checked + label {
+.form input[type="radio"]:checked + label {
   background-color: var(--dark-green);
   color: var(--white);
   border: 0.2rem solid var(--darkgreen);
 }
 
-form .radioGroup #expenseLabel {
+.form .radioGroup #expenseLabel {
   color: var(--red);
   border: 0.2rem solid var(--red);
 }
 
-form .radioGroup #expenseLabel:hover {
+.form .radioGroup #expenseLabel:hover {
   color: var(--dark-red);
   border: 0.2rem solid var(--dark-red);
 }
 
-form input[type="radio"]:checked + #expenseLabel {
+.form input[type="radio"]:checked + #expenseLabel {
   background-color: var(--dark-red);
   color: var(--white);
   border: 0.2rem solid var(--dark-red);
 }
 
-form .buttons {
+.form .buttons {
   display: flex;
   gap: 1.5rem;
 }
 
-form .buttons button {
+.form .buttons button {
   width: 100%;
   padding-block: 2rem;
   transition: 500ms;
 }
 
-form #cancelButton {
+.form #cancelButton {
   border: var(--red) 0.2rem solid;
   color: var(--red);
   font-weight: 500;
 }
 
-form #cancelButton:hover {
+.form #cancelButton:hover {
   border: var(--dark-red) 0.2rem solid;
   color: var(--white);
   background-color: var(--dark-red);
 }
 
-form #saveButton {
+.form #saveButton {
   border: var(--main-green) 0.2rem solid;
   background-color: var(--main-green);
   color: var(--white);
@@ -360,7 +360,7 @@ form #saveButton {
   background-color: var(--dark-green);
 }
 
-form #saveButton:hover {
+.form #saveButton:hover {
   border: var(--main-green) 0.2rem solid;
   background-color: var(--main-green);
 }
