@@ -28,12 +28,16 @@ const transaction = {
 
   edit: event => {
     event.preventDefault()
-    form.validateFields(`editModal`)
+    try {
+      form.validateFields(`editModal`)
 
-    const transact = form.formatData(`editModal`)
-    const idToEdit = document.querySelector(`#idToEditSaver`).innerHTML
-    transaction.all[idToEdit] = transact
-    htmlManipulations.toggleModalOpen('editModal')
+      const transact = form.formatData(`editModal`)
+      const idToEdit = document.querySelector(`#idToEditSaver`).innerHTML
+      transaction.all[idToEdit] = transact
+      htmlManipulations.toggleModalOpen('editModal')
+    } catch (error) {
+      alert(error)
+    }
 
     app.reload()
   },
@@ -211,16 +215,13 @@ const utilities = {
         checkedRadioValue = radioButton.value
       }
     })
-    console.log(checkedRadioValue)
 
     const amountIsEntry = checkedRadioValue == `entry`
-    console.log(amountIsEntry)
 
     const formatedAmount = amountIsEntry
       ? Math.abs(Number(amountValue) * 100)
       : -Math.abs(Number(amountValue) * 100)
 
-    console.log(formatedAmount)
     return formatedAmount
   },
 
@@ -314,7 +315,6 @@ const app = {
   // Function that reloads the html by removing all transactions from the html and initializing the app again.
   reload: () => {
     htmlManipulations.removeAllTransactions()
-    console.log(transaction.all)
     app.init()
   }
 }
