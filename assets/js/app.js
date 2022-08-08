@@ -98,8 +98,8 @@ const htmlManipulations = {
     const descriptionField = document.querySelector(`#editModal #description`)
     const amountField = document.querySelector(`#editModal #amount`)
     const dateField = document.querySelector(`#editModal #date`)
-    const expenseRadio = document.querySelector(`#editModal #expenseRadio`)
-    const entryRadio = document.querySelector(`#editModal #entryRadio`)
+    const expenseRadio = document.querySelector(`#editModal .inputExpense`)
+    const entryRadio = document.querySelector(`#editModal .inputEntry`)
 
     descriptionField.value = copiedTransaction.description
     amountField.value = copiedTransaction.amount
@@ -211,12 +211,17 @@ const utilities = {
         checkedRadioValue = radioButton.value
       }
     })
+    console.log(checkedRadioValue)
 
     const amountIsEntry = checkedRadioValue == `entry`
+    console.log(amountIsEntry)
 
-    return amountIsEntry
-      ? Number(amountValue) * 100
+    const formatedAmount = amountIsEntry
+      ? Math.abs(Number(amountValue) * 100)
       : -Math.abs(Number(amountValue) * 100)
+
+    console.log(formatedAmount)
+    return formatedAmount
   },
 
   // Function that formats the date to the brazillian pattern (dd/mm/yyyy).
@@ -282,8 +287,8 @@ const form = {
     const description = document.querySelector(`#${modalId} #description`)
     const amount = document.querySelector(`#${modalId} #amount`)
     const date = document.querySelector(`#${modalId} #date`)
-    const expenseRadio = document.querySelector(`#${modalId} #expenseRadio`)
-    const entryRadio = document.querySelector(`#${modalId} #entryRadio`)
+    const expenseRadio = document.querySelector(`#${modalId} .inputExpense`)
+    const entryRadio = document.querySelector(`#${modalId} .inputEntry`)
     description.value = ``
     amount.value = ``
     date.value = ``
